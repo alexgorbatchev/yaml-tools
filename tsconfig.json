@@ -13,7 +13,8 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
-    "moduleResolution": "Node16"
+    "moduleResolution": "Node16",
+    "removeComments": false
   },
   "exclude": ["**/node_modules", "**/tmp", "**/dist"]
 }
