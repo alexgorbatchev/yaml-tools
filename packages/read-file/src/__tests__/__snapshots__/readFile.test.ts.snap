@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`readFile sanity check 1`] = `
+"anchors:
+  map:
+    this:
+      is:
+        - deep:
+            - $types/node: ^16.11.6
+            - eslint: ../local/path
+            - tslib: next
+  sequence:
+    - 0
+    - a
+    - b
+    - c
+    - 1
+  another: value
+  boo: 10
+"
+`;

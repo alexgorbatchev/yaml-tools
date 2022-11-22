@@ -1,0 +1,26 @@
+deps:
+  +dependencies linting:
+    linting-1: ^2.4.2
+    linting-2: ^5.8.0
+    linting-3: ^8.5.0
+
+  +dependencies testing:
+    testing-1: ^27.0.3
+    # comments should be ok
+    testing-2: ^27.4.5
+    testing-3: ^27.1.2
+
+here:
+  too:
+    +dependencies nested:
+      nested-1: ^16.11.6
+      nested-2: next
+
+# comments
+results:
+  set1:
+      +with: [ nested, testing ]
+      pkg: latest
+
+  set2:
+    +with: [ nested ]

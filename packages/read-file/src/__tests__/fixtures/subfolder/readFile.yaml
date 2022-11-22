@@ -1,0 +1,10 @@
+anchors:
+  map:
+    +include: ~/map.yaml
+  sequence:
+    - 0
+    - +include: ../sequence.yaml
+    - 1
+  another: value
+  boo: 10
+

@@ -1,0 +1,91 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": true,
+  "[yaml]": {
+    "editor.formatOnSave": false
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": false
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/*.code-search": true,
+    "package-lock.json": true
+  },
+
+  "javascript.preferences.useAliasesForRenames": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.suggest.jsdoc.generateReturns": false,
+  "typescript.suggest.completeJSDocs": true,
+  "typescript.referencesCodeLens.enabled": false,
+  "typescript.referencesCodeLens.showOnAllFunctions": true,
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.inlayHints.parameterNames.enabled": "none",
+  "typescript.inlayHints.parameterTypes.enabled": false,
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": false,
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.implementationsCodeLens.enabled": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
+  "javascript.inlayHints.propertyDeclarationTypes.enabled": false,
+  "javascript.inlayHints.parameterTypes.enabled": true,
+  "javascript.inlayHints.parameterNames.enabled": "all",
+  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
+  "javascript.inlayHints.enumMemberValues.enabled": true,
+
+  "editor.inlayHints.fontSize": 12,
+  "workbench.colorCustomizations": {
+    "[Dracula Soft]": {
+      "editorInlayHint.background": "#00000000",
+      "editorInlayHint.foreground": "#ffffff19"
+    }
+  },
+
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimit",
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "importSorter.importStringConfiguration.tabSize": 2,
+  "importSorter.importStringConfiguration.trailingComma": "multiLine",
+  "importSorter.sortConfiguration.customOrderingRules.defaultOrderLevel": 5,
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 120,
+  "importSorter.importStringConfiguration.numberOfEmptyLinesAfterAllImports": 1,
+  "importSorter.sortConfiguration.customOrderingRules.rules": [
+    {
+      "regex": "^(react)",
+      "orderLevel": 0
+    },
+    {
+      "type": "importMember",
+      "regex": "^$",
+      "orderLevel": 5
+    },
+    {
+      "regex": "^(@app/)",
+      "orderLevel": 20
+    },
+    {
+      "regex": "^[.]",
+      "orderLevel": 30
+    }
+  ],
+
+  "replacerules.rules": {
+    "fix nx import": {
+      "find": "^import (\\w+) from 'libs/(\\w+/\\w+)/src/.*';$",
+      "replace": "import { $1 } from '@app/$2';"
+    }
+  },
+  "references.preferredLocation": "peek",
+  "editor.suggest.showReferences": true,
+  "git.branchProtectionPrompt": "alwaysCommit"
+}
