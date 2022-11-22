@@ -24,8 +24,6 @@ export const visitOperator = (
       const [, ...args] = String(node.key.value).slice(1).split(/\s+/);
       const result = cb(args, node, path);
 
-      if (typeof result === 'undefined') return;
-
       if (YAML.isPair(result)) {
         return result;
       }

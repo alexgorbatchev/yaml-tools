@@ -1,3 +1,6 @@
+// eslint-disable-next-line no-console
+console.log('⚡ Using Jest config from `jest.config.mjs`');
+
 export default {
   cache: true,
   verbose: true,

@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-console
-console.log('⚡ Using Prettier config from `.prettierrc.cjs`');
+console.log('⚡ Using Prettier config from `prettier.config.cjs`');
 
 module.exports = {
   parser: 'typescript',
