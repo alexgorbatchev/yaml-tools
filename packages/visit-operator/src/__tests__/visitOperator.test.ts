@@ -23,6 +23,8 @@ test('visitOperator', async () => {
           nested-1: ^16.11.6
           nested-2: next
 
+    +remove: value
+
     # comments
     results:
       set1:
@@ -33,10 +35,12 @@ test('visitOperator', async () => {
         +with: [ nested ]
   `;
 
+  doc = visitOperator(doc, '+remove', () => {
+    return YAML.visit.REMOVE;
+  });
+
   doc = visitOperator(doc, '+dependencies', (args, node) => {
     if (!YAML.isMap(node.value)) return;
-    if (args[0] === 'linting') return YAML.visit.REMOVE;
-
     const key = new YAML.Scalar(args[0]);
     const pair = doc.createPair(key, node.value.items);
     return pair;
@@ -50,6 +54,10 @@ test('visitOperator', async () => {
 
   expect(doc.toString()).toMatchInlineSnapshot(`
     "deps:
+      linting:
+        - linting-1: ^2.4.2
+        - linting-2: ^5.8.0
+        - linting-3: ^8.5.0
       testing:
         - testing-1: ^27.0.3
         - # comments should be ok
