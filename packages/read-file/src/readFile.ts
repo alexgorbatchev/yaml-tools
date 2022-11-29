@@ -4,7 +4,11 @@ import { dirname, join } from 'node:path/posix';
 import YAML from 'yaml';
 
 interface Options {
-  /** Current working directory, defaults to `process.cwd()`. */
+  /**
+   * Current working directory, defaults to `process.cwd()`. This option only
+   * has effect on the `+include` operator, more specifically on the `~/` paths
+   * used with it.
+   */
   cwd?: string;
 }
 

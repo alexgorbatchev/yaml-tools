@@ -1,6 +1,0 @@
-this:
-  is:
-    - deep:
-        - $types/node: ^16.11.6
-        - eslint: ../local/path
-        - tslib: next

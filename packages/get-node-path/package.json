@@ -1,6 +1,6 @@
 {
   "name": "@yaml-tools/get-node-path",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A YAML utility that converts an array of nodes to a simple path to node represented via an array of string or numbers.",
   "license": "ISC",
   "type": "module",
@@ -20,6 +20,7 @@
     "yaml": "^2.1.3"
   },
   "devDependencies": {
+    "@yaml-tools/inline": "workspace:*",
     "jest": "^29.3.0",
     "ts-jest": "^29.0.3",
     "typescript": "^4.9.3"
