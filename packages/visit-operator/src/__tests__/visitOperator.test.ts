@@ -1,23 +1,76 @@
+import yaml from '@yaml-tools/inline';
 import YAML from 'yaml';
 
 import { visitOperator } from '../visitOperator.js';
-import { getYamlFixture } from './helpers.js';
 
 test('visitOperator', async () => {
-  let yaml: YAML.Document = await getYamlFixture('fixtures/visitOperator.yaml');
+  let doc: YAML.Document = yaml`
+    deps:
+      +dependencies linting:
+        linting-1: ^2.4.2
+        linting-2: ^5.8.0
+        linting-3: ^8.5.0
 
-  yaml = visitOperator(yaml, '+dependencies', (args, node) => {
+      +dependencies testing:
+        testing-1: ^27.0.3
+        # comments should be ok
+        testing-2: ^27.4.5
+        testing-3: ^27.1.2
+
+    here:
+      too:
+        +dependencies nested:
+          nested-1: ^16.11.6
+          nested-2: next
+
+    # comments
+    results:
+      set1:
+          +with: [ nested, testing ]
+          pkg: latest
+
+      set2:
+        +with: [ nested ]
+  `;
+
+  doc = visitOperator(doc, '+dependencies', (args, node) => {
     if (!YAML.isMap(node.value)) return;
+    if (args[0] === 'linting') return YAML.visit.REMOVE;
+
     const key = new YAML.Scalar(args[0]);
-    const pair = yaml.createPair(key, node.value.items);
+    const pair = doc.createPair(key, node.value.items);
     return pair;
   });
 
-  yaml = visitOperator(yaml, '+with', (_args, node) => {
+  doc = visitOperator(doc, '+with', (_args, node) => {
     if (!YAML.isSeq(node.value)) return;
-    const pairs = node.value.items.map((item, index) => yaml.createPair(item, index));
+    const pairs = node.value.items.map((item, index) => doc.createPair(item, index));
     return pairs;
   });
 
-  expect(yaml.toString()).toMatchSnapshot();
+  expect(doc.toString()).toMatchInlineSnapshot(`
+    "deps:
+      testing:
+        - testing-1: ^27.0.3
+        - # comments should be ok
+          testing-2: ^27.4.5
+        - testing-3: ^27.1.2
+
+    here:
+      too:
+        nested:
+          - nested-1: ^16.11.6
+          - nested-2: next
+
+    # comments
+    results:
+      set1:
+        nested: 0
+        testing: 1
+        pkg: latest
+
+      set2:
+        nested: 0
+    "
+  `);
 });

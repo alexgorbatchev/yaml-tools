@@ -13,7 +13,7 @@ type NodePath = readonly (YAML.Node<unknown> | YAML.Document<YAML.Node<unknown>>
 export const visitOperator = (
   doc: YAML.Document,
   operator: string,
-  cb: (args: readonly string[], node: YAML.Pair, path: NodePath) => YAML.Pair | YAML.Pair[] | undefined | void,
+  cb: (args: readonly string[], node: YAML.Pair, path: NodePath) => YAML.Pair | YAML.Pair[] | symbol | undefined | void,
 ): YAML.Document => {
   const results = doc.clone();
 
@@ -24,9 +24,8 @@ export const visitOperator = (
       const [, ...args] = String(node.key.value).slice(1).split(/\s+/);
       const result = cb(args, node, path);
 
-      if (YAML.isPair(result)) {
-        return result;
-      }
+      if (typeof result === 'symbol') return result;
+      if (YAML.isPair(result)) return result;
 
       if (Array.isArray(result)) {
         const parent = path[path.length - 1];
