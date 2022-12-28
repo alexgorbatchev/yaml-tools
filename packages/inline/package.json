@@ -21,7 +21,8 @@
   "scripts": {
     "lint": "eslint 'src'",
     "dev": "tsc --project . --watch",
-    "build": "rm -fr ./dist && tsc --project tsconfig.build.json",
+    "clean": "rm -fr ./dist",
+    "build": "pnpm run clean && tsc --project tsconfig.build.json",
     "test": "node --experimental-vm-modules $(pnpm root)/jest/bin/jest.js"
   },
   "dependencies": {
