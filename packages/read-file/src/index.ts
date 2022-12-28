@@ -1,2 +1,1 @@
-export { readFile as default } from './readFile.js';
-export { WithFilePath, hasFilePath, withFilePath } from './readFile.js';
+export { readFile as default, WithFilePath, hasFilePath, withFilePath, forEachIncludeOperator } from './readFile.js';

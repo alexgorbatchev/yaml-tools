@@ -1,4 +1,4 @@
-import visitOperator from '@yaml-tools/visit-operator';
+import visitOperator, { VisitorResults } from '@yaml-tools/visit-operator';
 import fs from 'fs';
 import { dirname, join } from 'path';
 import YAML from 'yaml';
@@ -49,6 +49,31 @@ export const hasFilePath = <T extends YAML.Node>(value: T): value is T & WithFil
 export const withFilePath = <T extends YAML.Node>(value: T): (T & WithFilePath) | undefined =>
   hasFilePath(value) ? value : undefined;
 
+/**
+ * This helper function is the core for the `+include` operator processing.
+ */
+export const forEachIncludeOperator = (
+  doc: YAML.Document,
+  filePath: string,
+  cwd: string,
+  cb: (filePath: string) => VisitorResults,
+): YAML.Document => {
+  const context = dirname(filePath);
+
+  return visitOperator(doc, '+include', (_, node) => {
+    if (!YAML.isScalar(node.value) || typeof node.value.value !== 'string') {
+      throw new Error('+include value must be a string');
+    }
+
+    const includePath = node.value.value;
+    const includeFileName = includePath.startsWith('~/')
+      ? includePath.replace(/^~\//, cwd + '/')
+      : join(context, includePath);
+
+    return cb(includeFileName);
+  });
+};
+
 const injectFilePath = (doc: YAML.Document, filePath: string) => {
   const results = doc.clone();
   YAML.visit(results, (_, node) => {
@@ -76,19 +101,9 @@ export const readFile = (filePath: string, opts: Options = {}): YAML.Document =>
   }
 
   const cwd = opts?.cwd ?? process.cwd();
-  const context = dirname(filePath);
 
-  return visitOperator(doc, '+include', (_, node) => {
-    if (!YAML.isScalar(node.value) || typeof node.value.value !== 'string') {
-      throw new Error('+include value must be a string');
-    }
-
-    const includePath = node.value.value;
-    const includeFileName = includePath.startsWith('~/')
-      ? includePath.replace(/^~\//, cwd + '/')
-      : join(context, includePath);
-
-    const results = readFile(includeFileName, { cwd }).contents as any;
-    return opts.disableFilePathInjection ? results : injectFilePath(results, includeFileName);
+  return forEachIncludeOperator(doc, filePath, cwd, filePath => {
+    const results = readFile(filePath, opts).contents as any;
+    return opts.disableFilePathInjection ? results : injectFilePath(results, filePath);
   });
 };
