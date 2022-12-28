@@ -1,6 +1,6 @@
 {
   "name": "@yaml-tools/visit-operator",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A utility to process special YAML nodes, lets call them operators, with the purpose of making plain YAML a little bit smarter.",
   "license": "ISC",
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "@yaml-tools/read-file",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A utility to read YAML files which can include other YAML files via a special `+include` operator.",
   "license": "ISC",
   "repository": {

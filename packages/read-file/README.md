@@ -56,6 +56,7 @@ withFilePath(doc.contents!).filePath;
 
 ## Helpers
 
+* `forEachIncludeOperator` -- this helper function is the core for the `+include` operator processing.
 * `hasFilePath` -- type predicate helper function to check if a `YAML.Node` has `filePath`.
 * `withFilePath` -- returns a `YAML.Node & WithFilePath` variety if passed value is a `YAML.Node` with `filePath`.
 * `WithFilePath` -- TypeScript interface.
