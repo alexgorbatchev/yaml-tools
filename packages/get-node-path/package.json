@@ -1,6 +1,6 @@
 {
   "name": "@yaml-tools/get-node-path",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A YAML utility that converts an array of nodes to a simple path to node represented via an array of string or numbers.",
   "license": "ISC",
   "type": "module",

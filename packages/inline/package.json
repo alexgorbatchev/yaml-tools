@@ -1,6 +1,6 @@
 {
   "name": "@yaml-tools/inline",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A YAML utility to easily inline a document.",
   "license": "ISC",
   "type": "module",
