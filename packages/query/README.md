@@ -16,8 +16,18 @@ const doc = yaml`
 const selector = query(doc);
 
 selector.one();
-// hello world
+// Scalar {
+//   value: 'hello world',
+//   range: [ 8, 19, 20 ],
+//   source: 'hello world',
+//   type: 'PLAIN'
+// }
 
 selector.two[0].three();
-// 4
+// Scalar {
+//   value: 4,
+//   range: [ 40, 41, 42 ],
+//   source: '4',
+//   type: 'PLAIN'
+// }
 ```

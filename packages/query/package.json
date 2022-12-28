@@ -1,6 +1,6 @@
 {
   "name": "@yaml-tools/query",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A utility to query a YAML document using simple object syntax.",
   "license": "ISC",
   "repository": {
