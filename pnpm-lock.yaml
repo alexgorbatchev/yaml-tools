@@ -66,8 +66,24 @@ importers:
       ts-jest: 29.0.3_l7ogkwvvo7czeltdvm33frvj2u
       typescript: 4.9.3
 
+  packages/query:
+    specifiers:
+      '@yaml-tools/inline': workspace:*
+      jest: ^29.3.0
+      ts-jest: ^29.0.3
+      typescript: ^4.9.3
+      yaml: ^2.1.3
+    dependencies:
+      yaml: 2.1.3
+    devDependencies:
+      '@yaml-tools/inline': link:../inline
+      jest: 29.3.0
+      ts-jest: 29.0.3_l7ogkwvvo7czeltdvm33frvj2u
+      typescript: 4.9.3
+
   packages/read-file:
     specifiers:
+      '@yaml-tools/query': workspace:*
       '@yaml-tools/visit-operator': workspace:*
       jest: ^29.3.0
       ts-jest: ^29.0.3
@@ -77,6 +93,7 @@ importers:
       '@yaml-tools/visit-operator': link:../visit-operator
       yaml: 2.1.3
     devDependencies:
+      '@yaml-tools/query': link:../query
       jest: 29.3.0
       ts-jest: 29.0.3_l7ogkwvvo7czeltdvm33frvj2u
       typescript: 4.9.3

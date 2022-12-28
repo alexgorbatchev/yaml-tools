@@ -22,7 +22,7 @@ anchors:
 ```
 
 ```ts
-import readFile, { WithFilePath, hasFilePath, withFilePath } from `@yaml-tools/read-file`;
+import readFile, { hasFilePath, withFilePath } from `@yaml-tools/read-file`;
 
 const doc = readFile('./file.yaml', { cwd: process.cwd() });
 // anchors:
@@ -58,3 +58,4 @@ withFilePath(doc.contents!).filePath;
 
 * `hasFilePath` -- type predicate helper function to check if a `YAML.Node` has `filePath`.
 * `withFilePath` -- returns a `YAML.Node & WithFilePath` variety if passed value is a `YAML.Node` with `filePath`.
+* `WithFilePath` -- TypeScript interface.

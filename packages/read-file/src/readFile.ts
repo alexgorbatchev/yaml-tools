@@ -1,6 +1,6 @@
 import visitOperator from '@yaml-tools/visit-operator';
-import fs from 'node:fs';
-import { dirname, join } from 'node:path/posix';
+import fs from 'fs';
+import { dirname, join } from 'path';
 import YAML from 'yaml';
 
 interface Options {
@@ -8,9 +8,54 @@ interface Options {
    * Current working directory, defaults to `process.cwd()`. This option only
    * has effect on the `+include` operator, more specifically on the `~/` paths
    * used with it.
+   *
+   * @default process.cwd()
    */
   cwd?: string;
+
+  /**
+   * When `true`, `readFile` won't process `+include` operators.
+   *
+   * @default false
+   */
+  disableIncludes?: boolean;
+
+  /**
+   * When `true`, `readFile` won't inject `filePath` into each `YAML.Node`.
+   *
+   * @default false
+   */
+  disableFilePathInjection?: boolean;
 }
+
+/**
+ * A `YAML.Node` will conform to `WithFilePath` unless `disableFilePathInjection: true`
+ * was passed via options argument.
+ */
+export interface WithFilePath {
+  filePath: string;
+}
+
+/**
+ * A type predicate helper function to check if a `YAML.Node` has `filePath`.
+ */
+export const hasFilePath = <T extends YAML.Node>(value: T): value is T & WithFilePath =>
+  value && typeof (value as any as WithFilePath).filePath === 'string' ? true : false;
+
+/**
+ * Returns a `YAML.Node & WithFilePath` variety if passed value is a `YAML.Node` with `filePath`
+ * property attached.
+ */
+export const withFilePath = <T extends YAML.Node>(value: T): (T & WithFilePath) | undefined =>
+  hasFilePath(value) ? value : undefined;
+
+const injectFilePath = (doc: YAML.Document, filePath: string) => {
+  const results = doc.clone();
+  YAML.visit(results, (_, node) => {
+    (node as WithFilePath).filePath = filePath;
+  });
+  return results;
+};
 
 /**
  * Reads a YAML file while processing `+include: ./path/to.yaml` nodes merging
@@ -22,14 +67,18 @@ interface Options {
  *
  * This function is syncronous because `YAML.visit()` is syncronous.
  */
-export const readFile = (fileName: string, opts: Options = {}): YAML.Document => {
-  // this method has to be syncronous because YAML.visit is syncronous
+export const readFile = (filePath: string, opts: Options = {}): YAML.Document => {
+  const rawDoc = YAML.parseDocument(fs.readFileSync(filePath, 'utf-8'));
+  const doc = opts.disableFilePathInjection ? rawDoc : injectFilePath(rawDoc, filePath);
+
+  if (opts.disableIncludes) {
+    return doc;
+  }
 
   const cwd = opts?.cwd ?? process.cwd();
-  const content = fs.readFileSync(fileName, 'utf-8');
-  const context = dirname(fileName);
+  const context = dirname(filePath);
 
-  return visitOperator(YAML.parseDocument(content), '+include', (_, node) => {
+  return visitOperator(doc, '+include', (_, node) => {
     if (!YAML.isScalar(node.value) || typeof node.value.value !== 'string') {
       throw new Error('+include value must be a string');
     }
@@ -39,6 +88,7 @@ export const readFile = (fileName: string, opts: Options = {}): YAML.Document =>
       ? includePath.replace(/^~\//, cwd + '/')
       : join(context, includePath);
 
-    return readFile(includeFileName, { cwd }).contents as any;
+    const results = readFile(includeFileName, { cwd }).contents as any;
+    return opts.disableFilePathInjection ? results : injectFilePath(results, includeFileName);
   });
 };
