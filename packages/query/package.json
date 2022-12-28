@@ -1,8 +1,16 @@
 {
   "name": "@yaml-tools/query",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A utility to query a YAML document using simple object syntax.",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:alexgorbatchev/yaml-tools.git"
+  },
+  "homepage": "https://github.com/alexgorbatchev/yaml-tools/tree/master/packages/query",
+  "author": {
+    "name": "Alex Gorbatchev"
+  },
   "type": "module",
   "types": "./dist/index.d.ts",
   "files": ["./dist/*"],

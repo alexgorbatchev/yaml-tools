@@ -1,8 +1,16 @@
 {
   "name": "@yaml-tools/visit-operator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A utility to process special YAML nodes, lets call them operators, with the purpose of making plain YAML a little bit smarter.",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:alexgorbatchev/yaml-tools.git"
+  },
+  "homepage": "https://github.com/alexgorbatchev/yaml-tools/tree/master/packages/visit-operator",
+  "author": {
+    "name": "Alex Gorbatchev"
+  },
   "type": "module",
   "types": "./dist/index.d.ts",
   "files": ["./dist/*"],

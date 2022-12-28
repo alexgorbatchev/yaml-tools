@@ -1,8 +1,16 @@
 {
   "name": "@yaml-tools/get-node-path",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A YAML utility that converts an array of nodes to a simple path to node represented via an array of string or numbers.",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:alexgorbatchev/yaml-tools.git"
+  },
+  "homepage": "https://github.com/alexgorbatchev/yaml-tools/tree/master/packages/get-node-path",
+  "author": {
+    "name": "Alex Gorbatchev"
+  },
   "type": "module",
   "types": "./dist/index.d.ts",
   "files": ["./dist/*"],

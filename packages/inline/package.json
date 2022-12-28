@@ -1,8 +1,16 @@
 {
   "name": "@yaml-tools/inline",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A YAML utility to easily inline a document.",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:alexgorbatchev/yaml-tools.git"
+  },
+  "homepage": "https://github.com/alexgorbatchev/yaml-tools/tree/master/packages/inline",
+  "author": {
+    "name": "Alex Gorbatchev"
+  },
   "type": "module",
   "types": "./dist/index.d.ts",
   "files": ["./dist/*"],

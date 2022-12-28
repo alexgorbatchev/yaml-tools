@@ -1,8 +1,16 @@
 {
   "name": "@yaml-tools/read-file",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A utility to read YAML files which can include other YAML files via a special `+include` operator.",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:alexgorbatchev/yaml-tools.git"
+  },
+  "homepage": "https://github.com/alexgorbatchev/yaml-tools/tree/master/packages/read-file",
+  "author": {
+    "name": "Alex Gorbatchev"
+  },
   "type": "module",
   "types": "./dist/index.d.ts",
   "files": ["./dist/*"],
