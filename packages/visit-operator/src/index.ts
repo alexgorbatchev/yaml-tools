@@ -1,1 +1,1 @@
-export { visitOperator as default } from './visitOperator.js';
+export { visitOperator as default, VisitorResults, NodePath } from './visitOperator.js';

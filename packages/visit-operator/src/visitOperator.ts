@@ -1,6 +1,12 @@
 import YAML from 'yaml';
 
-type NodePath = readonly (YAML.Node<unknown> | YAML.Document<YAML.Node<unknown>> | YAML.Pair<unknown, unknown>)[];
+export type NodePath = readonly (
+  | YAML.Node<unknown>
+  | YAML.Document<YAML.Node<unknown>>
+  | YAML.Pair<unknown, unknown>
+)[];
+
+export type VisitorResults = YAML.Pair | YAML.Pair[] | symbol | undefined | void;
 
 /**
  * A utility for the [yaml](https://github.com/eemeli/yaml) to process special
@@ -13,7 +19,7 @@ type NodePath = readonly (YAML.Node<unknown> | YAML.Document<YAML.Node<unknown>>
 export const visitOperator = (
   doc: YAML.Document,
   operator: string,
-  cb: (args: readonly string[], node: YAML.Pair, path: NodePath) => YAML.Pair | YAML.Pair[] | symbol | undefined | void,
+  cb: (args: readonly string[], node: YAML.Pair, path: NodePath) => VisitorResults,
 ): YAML.Document => {
   const results = doc.clone();
 
