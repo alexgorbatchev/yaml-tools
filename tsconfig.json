@@ -12,8 +12,8 @@
     "declaration": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES6",
-    "moduleResolution": "Node",
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
     "removeComments": false
   },
   "exclude": ["**/node_modules", "**/tmp", "**/dist"]
